@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <title>Registro</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        .footer{position: fixed; left:0; bottom:0; width: 100%; text-align: center; background-color: lightseagreen; color:mediumorchid;}
+    </style>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  </head>
+  <body style="background-color:rgb(214, 242, 247)">
+    <nav class="navbar navbar-expand-xl bg-info"> 
+      <img src="{% static 'principal/img/logo.png' %}" alt="logo" style="width: 100px;" class="d-inline-block align-top">
+      <h1 class="container text-center">Registro</h1>
+    </nav>
+    <div class ="container">
+        <h1></h1>
+        <form method="POST" action="guardarPaciente" id="signupForm">
+            {% csrf_token %}
+          <div class= "form-group">
+            <label for="rut">Rut</label>
+            <input type="text" name="rut" id="rut" class="form-control">
+          </div>  
+          <div class= "form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" class="form-control">
+          </div>
+          <div class= "form-group">
+            <label for="nombrePaciente">Nombre</label>
+            <input type="text" name="nombrep" id="nombrep" class="form-control">
+          </div>
+          <div class= "form-group">
+            <label for="apellidoPaciente">Apellidos</label>
+            <input type="text" name="apellidop" id="apellidop" class="form-control">
+          </div>
+          <div class= "form-group">
+            <label for="region">Region</label>
+            <select name="region" id="region" class="form-control">
+              {% for r in regiones %}
+                  <option value={{r.region}}>{{r.region}}</option>
+              {% endfor %}
+          </select> 
+          </div>
+          <div class= "form-group">
+            <label for="provincia">Provincia</label>
+            <select name="provincia" id="Provincia" class="form-control">
+              {% for p in provincias %}
+                  <option value={{p.provincia}}>{{p.provincia}}</option>
+              {% endfor %}
+          </select> 
+          </div>
+          <div class= "form-group">
+            <label for="comuna">Comuna</label>
+            <select name="comuna" id="comuna" class="form-control">
+              {% for c in comunas %}
+                  <option value={{c.comuna}}>{{c.comuna}}</option>
+              {% endfor %}
+          </select> 
+          </div>
+          <div class= "form-group">
+            <label for="edad">edad</label>
+            <input type="text" name="edad" id="edad" class="form-control">
+          </div>  
+          <div class= "form-group">
+            <label for="sexo">Sexo</label>
+            <select name="sexo" id="sexo" class="form-control">
+              {% for g in generos %}
+                  <option value={{g.sexo}}>{{g.sexo}}</option>
+              {% endfor %}
+          </select> 
+          </div>
+          <div class= "form-group">
+            <label for="password">contraseña</label>
+            <input type="password" name="password" id="password" class="form-control">
+          </div>
+          <div class="form-group">
+              <input onclick="alert('validando datos....')" type="submit" value="Guardar">
+              <input type="reset" value="Limpiar">
+          </div>
+        </form>
+        <a href="loginC" class="btn btn-primary">Iniciar Sesion</a>   
+
+    </div>
+    
+    <div class="footer"><h1>Cruz Morada</h1></div>
+
+    
+
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
+    <script src="static/validacion2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  var Fn = {
+  // Valida el rut con su cadena completa "XXXXXXXX-X"
+    validaRut : function (rutCompleto) {
+    rutCompleto = rutCompleto.replace("‐","-");
+    if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto ))
+      return false;
+    var tmp 	= rutCompleto.split('-');
+    var digv	= tmp[1]; 
+    var rut 	= tmp[0];
+    if ( digv == 'K' ) digv = 'k' ;
+    
+    return (Fn.dv(rut) == digv );
+},
+dv : function(T){
+  var M=0,S=1;
+  for(;T;T=Math.floor(T/10))
+    S=(S+T%10*(9-M++%6))%11;
+  return S?S-1:'k';
+}
+}
+  
+  $("#btnvalida").ready(function(){
+    if (Fn.validaRut( $("#txt_rut").val() )){
+      $("#msgerror").html("El rut ingresado es válido :D");
+    } else {
+      $("#msgerror").html("El Rut no es válido :'( ");
+    }
+  });
+</script>

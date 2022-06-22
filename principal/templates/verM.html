@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <style>
+    .footer{position: fixed; left:0; bottom:0; width: 100%; text-align: center; background-color: lightseagreen; color:mediumorchid;}
+  </style>
+</head>
+<body style="background-color:rgb(214, 242, 247)">
+    <nav class="navbar navbar-expand-xl bg-info"> 
+        <img src="{% static 'principal/img/logo.png' %}" alt="logo" style="width: 100px;" class="d-inline-block align-top">
+        <h1 class="container text-center">Bienvenido Usuario {{nombre}}</h1>
+      </nav>
+    <h1></h1>
+    <div class="container">
+        <div class="row">
+            <table class="table">
+                <tr>
+                    <td>ID</td>
+                    <td>Nombre</td>
+                    <td>Apellido</td>
+                    <td>Especialidad</td>
+                </tr>
+                {% for m in medicos %}
+                        <tr>
+                                <td>{{m.idMedico}}</td>
+                                <td>{{m.nombreMedico}}</td>
+                                <td>{{m.apellidoMedico}}</td>
+                                <td>{{m.especialidad}}</td>
+                        </tr>
+                   {% endfor %}
+                   <button onclick="location.href = 'verH'" type="button" class="btn btn-primary btn-lg btn-block">Agendar Hora</button>
+                   <button onclick="location.href = 'verHRP'" type="button" class="btn btn-primary btn-lg btn-block">Anular Hora</button>
+    </div>
+<div class="container-fluid">
+        <button onclick="location.href = '/'" type="btn btn-danger" class="margin-bottom: 10px; border-radius: 10px !important">Cerrar Sesion</button>   
+</div>
+<div class="footer"><h1>Cruz morada</h1></div>
+                 
+</body>
+</html>
